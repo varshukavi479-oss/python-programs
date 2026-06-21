@@ -32,9 +32,57 @@ This project analyzes a food menu dataset using Python, Pandas, NumPy, and OpenP
 - Snacks/Popcorn
 
 ## Output
-The cleaned dataset is exported as:
+## 📟 Output
 
-food_data_cleaned.xlsx
+### Dataset Overview
+- Total Items: 50
+- Categories: 7
+- Dataset contains:
+  - Item ID
+  - Item Name
+  - Category
+  - Price (INR)
+  - Calories (kcal)
+  - Protein (g)
+  - Fat (g)
+  - Carbohydrates (g)
+  - Sodium (mg)
+
+### Analysis Performed
+✅ Statistical Summary using `describe()`
+
+✅ Category-wise Filtering:
+- Fried Chicken
+- Burgers
+- Rice & Rolls
+- Sides
+- Beverages
+- Desserts
+- Snacks/Popcorn
+
+✅ Category-wise Nutritional Summaries
+
+✅ Total Price Calculation
+
+✅ Total Protein Calculation
+
+✅ Total Calories Calculation
+
+✅ Grouped Category Analysis using `groupby()`
+
+✅ New Classification Columns Created:
+- Is_Fried
+- Is_Burger
+- Is_rice
+- Is_sides
+- Is_beverage
+- Is_deserts
+- Is_snacks
+
+### Generated Output File
+📁 `food_data_cleaned.xlsx`
+
+The cleaned dataset is successfully exported to an Excel file with additional category indicator columns.
 
 ## Author
 Varshini Nagarajan
