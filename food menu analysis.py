@@ -1,0 +1,144 @@
+import pandas as pd
+import numpy as np
+from pandas.core.methods import describe
+from openpyxl import load_workbook
+
+
+
+columns = ["Item_ID","Item_Name","Category","Price_INR","Calories_kcal",
+           "Protein_g","Fat_g","Carbs_g","Sodium_mg"]
+
+data = [
+    ["K001","Hot_Wings","Fried_Chicken",267,262,30.6,17.6,7.1,554],
+    ["K002","Original_Recipe_Chicken","Fried_Chicken",276,529,19.5,21.7,5.4,673],
+    ["K003","Crispy_Tenders","Fried_Chicken",174,558,18.5,16.6,14.7,1008],
+    ["K004","SpicyDrumstick","Fried_Chicken",216,479,28.0,30.6,5.1,613],
+    ["K005","Boneless_Bites","Fried_Chicken",281,424,22.7,17.0,16.5,554],
+    ["K006","Zinger_Piece","Fried_Chicken",141,299,24.1,19.9,9.0,494],
+    ["K007","BBQ_Chicken_Strip","Fried_Chicken",288,524,20.1,33.2,6.2,750],
+    ["K008","Honey_Glazed_Wing","Fried_Chicken",311,566,33.1,20.3,7.9,521],
+    ["K009","Chicken_Drumstick","Fried_Chicken",131,366,31.1,34.7,17.8,553],
+    ["K010","Crunchy_ChickenLeg","Fried_Chicken",207,482,28.8,20.4,10.6,664],
+    ["K011","Zinger_Burger","Burgers",237,529,27.2,24.7,45.2,687],
+    ["K012","Classic_ChickenBurger","Burgers",219,412,17.1,20.7,54.7,927],
+    ["K013","Double_CrunchBurger","Burgers",239,406,23.9,27.6,49.4,717],
+    ["K014","Spicy_ZingerBurger","Burgers",257,556,19.1,19.0,35.3,1082],
+    ["K015","Chicken_FilletBurger","Burgers",224,533,19.1,24.8,39.9,1068],
+    ["K016","Cheese_ZingerBurger","Burgers",234,386,18.4,18.7,44.0,734],
+    ["K017","Mexican_Burger","Burgers",247,459,26.7,21.0,35.5,670],
+    ["K018","BBQ_ChickenBurger","Burgers",216,373,24.8,27.9,33.8,681],
+    ["K019","Rice_BowlSpicy","Rice & Rolls",235,408,18.9,13.4,57.9,739],
+    ["K020","Chicken_RiceBowl","Rice & Rolls",203,548,18.3,21.2,60.4,558],
+    ["K021","Hot & CrispyRiceBox","Rice & Rolls",222,437,21.3,18.8,50.2,650],
+    ["K022","Chicken_RollSpicy","Rice & Rolls",192,416,10.0,18.1,61.6,997],
+    ["K023","Veggie_RiceBowl","Rice & Rolls",200,345,17.6,9.5,58.8,930],
+    ["K024","Chicken_PopcornRiceBox","Rice & Rolls",217,455,13.0,13.2,44.8,988],
+    ["K025","French_Fries","Sides",153,255,7.5,14.0,29.7,257],
+    ["K026","Coles_law","Sides",171,344,7.9,17.1,22.2,323],
+    ["K027","Mashed_Potato","Sides",165,140,2.5,12.3,17.1,589],
+    ["K028","CornCob","Sides",124,152,2.8,12.1,31.5,335],
+    ["K029","Potato_Wedges","Sides",123,275,4.5,8.2,31.2,573],
+    ["K030","Garlic_Bread","Sides",143,302,3.9,19.9,34.5,424],
+    ["K031","Baked_Beans","Sides",168,235,2.7,8.4,25.1,501],
+    ["K032","Cheesy_Fries","Sides",126,270,3.3,6.1,33.9,317],
+    ["K033","Pepsi_Regular","Beverages",46,8,0.0,0.0,43.0,4],
+    ["K034","Pepsi_Large","Beverages",86,71,0.0,0.0,33.4,13],
+    ["K035","Mount_ainDew","Beverages",89,185,0.0,0.0,46.8,36],
+    ["K036","Lemon_IcedTea","Beverages",92,62,0.0,0.0,39.2,51],
+    ["K037","Mineral_Water","Beverages",77,24,0.0,0.0,4.8,27],
+    ["K038","Slurpee_Cola","Beverages",72,105,0.0,0.0,23.4,46],
+    ["K039","Diet_Pepsi","Beverages",45,167,0.0,0.0,49.2,6],
+    ["K040","Mirinda","Beverages",45,186,0.0,0.0,17.0,55],
+    ["K041","Choco_LavaCake","Desserts",61,199,2.8,10.8,34.8,111],
+    ["K042","Soft_ServeCone","Desserts",96,373,5.7,10.8,50.1,180],
+    ["K043","Brownie_FudgeSundae","Desserts",60,316,6.0,15.9,53.9,100],
+    ["K044","Apple_Pie","Desserts",67,274,3.9,16.2,51.6,82],
+    ["K045","Choco_TwistCone","Desserts",88,249,3.1,15.2,35.9,148],
+    ["K046","Caramel_Sundae","Desserts",120,337,6.0,12.2,45.1,79],
+    ["K047","Popcorn_ChickenRegular","Snacks/Popcorn",134,255,23.6,19.3,20.8,782],
+    ["K048","Popcorn_ChickenLarge","Snacks/Popcorn",156,212,19.0,18.0,27.1,480],
+    ["K049","Chicken_Nuggets6pc","Snacks/Popcorn",110,330,13.0,13.0,21.9,745],
+    ["K050","Chicken_Nuggets9pc","Snacks/Popcorn",255,303,13.4,24.2,14.9,704],
+]
+
+df = pd.DataFrame(data, columns=columns)
+print(df)
+
+print("Describe The Data")
+print(df.describe())
+print("Colums Names")
+df.columns = ["Item_ID","Item_Name","Category","Price_INR","Calories_kcal",
+              "Protein_g","Fat_g","Carbs_g","Sodium_mg"]
+print(df)
+print("====FRIED CHICKEN====")
+fried_chicken = df[df["Category"] == "Fried_Chicken"]
+print(fried_chicken)
+print("====BURGERS====")
+burgers=df[df["Category"]=="Burgers"]
+print(burgers)
+print("====RICE & ROLLS====")
+rice_rolls=df[df["Category"]=="Rice & Rolls"]
+print(rice_rolls)
+print("====SIDES====")
+sides=df[df["Category"]=="Sides"]
+print(sides)
+print("====BEVERAGES====")
+beverage=df[df["Category"]=="Beverages"]
+print(beverage)
+print("====DESSERTS====")
+desserts=df[df["Category"]=="Desserts"]
+print(desserts)
+print("====SNACKS/POPCORN====")
+snacks_popcorn=df[df["Category"]=="Snacks/Popcorn"]
+print(snacks_popcorn)
+print("====SUM OF FRIED_CHICKEM====")
+print(fried_chicken.sum(numeric_only=True))
+print("====SUM OF BURGERS====")
+print(burgers.sum(numeric_only=True))
+print("====SUM OF RICE_ROLLS====")
+print(rice_rolls.sum(numeric_only=True))
+print("====SUM of SIDES====")
+print(sides.sum(numeric_only=True))
+print("====SUM OF BEVERAGE====")
+print(beverage.sum(numeric_only=True))
+print("====SUM OF DESSERTS====")
+print(desserts.sum(numeric_only=True))
+print("====SUM OF SNACKS/POPCORN====")
+print(snacks_popcorn.sum(numeric_only=True))
+
+print("====TOTAL OF PRICE TNR====")
+print(df["Price_INR"].sum())
+print("====TOTAL OF PROTEIN====")
+print(df["Protein_g"].sum())
+print("====TOTAL OF CALORIES KCAL====")
+print(df["Calories_kcal"].sum())
+
+category_summary = df.groupby("Category").sum(numeric_only=True)
+print("==== SUM BY CATEGORY ====")
+print(category_summary)
+
+df["Is_Fried"] = np.where(df["Category"] == "Fried_Chicken", "Yes", "No")
+print(df["Is_Fried"])
+
+
+df["Is_Burger"] = np.where(df["Category"] == "Burgers", "Yes", "No")
+print(df["Is_Burger"])
+
+df["Is_rice"] = np.where(df["Category"] == "Rice & Rolls", "Yes", "No")
+print(df["Is_rice"])
+
+
+df["Is_sides"] = np.where(df["Category"] == "Sides", "Yes", "No")
+print(df["Is_sides"])
+
+df["Is_beverage"] = np.where(df["Category"] == "Beverages", "Yes", "No")
+print(df["Is_beverage"])
+
+df["Is_deserts"] = np.where(df["Category"] == "Desserts", "Yes", "No")
+print(df["Is_deserts"])
+
+df["Is_snacks"] = np.where(df["Category"] == "Snacks/Popcorn", "Yes", "No")
+print(df["Is_snacks"])
+
+df.to_excel("food_data_cleaned.xlsx", index=False)
+print("Saved with all new columns!")
